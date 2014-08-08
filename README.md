@@ -40,7 +40,7 @@ Parse.Cloud.define("generateToken", function(request, response) {
 	var nonce = request.params.nonce
 	if (!userID) throw new Error('Missing userID parameter');
 	if (!nonce) throw new Error('Missing nonce parameter');
-        response.success(client.layerIdentityToken(userID, nonce));
+    response.success(client.layerIdentityToken(userID, nonce));
 });
 ```
 

@@ -98,7 +98,7 @@ Once you have created the Cloud function with the layer-parse-module, you must c
 	   			void done(String token, ParseException e) {
 		    		if (e == null) {
 		    			// Extract the token returned in the response and use it to authenticate the Layer client
-			 			[self.client authenticateWithIdentityToken:@"IDENTITY_TOKEN" completion:^(NSString *remoteUserID, 							NSError *error) {
+			 			[self.client authenticateWithIdentityToken:@"IDENTITY_TOKEN" completion:^(NSString *remoteUserID, NSError *error) {
 		     				if (!error) {
 		    			  		NSLog(@"Successful Auth with userID %@", remoteUserID);
 		     				}

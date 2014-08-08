@@ -4,7 +4,7 @@ To incorporate Layer Authentication with Parse user management in your applicati
 
 
 ##Installation
-If you haven't already, install the Parse command line tool that will let you manage the Parse Cloud Code linked to your Parse application by following the directions outlined [here](https://parse.com/docs/cloud_code_guide).
+If you haven't already, install the Parse command line tool that will let you manage the Parse Cloud Code for your application by following the directions outlined [here](https://parse.com/docs/cloud_code_guide).
 
 To get the Layer Module, clone this repo, and place it in your Parse Cloud Code Directory in the cloud folder:
 

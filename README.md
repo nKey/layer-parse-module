@@ -48,8 +48,8 @@ Parse.Cloud.define("generateToken", function(request, response) {
 Once you have created the Cloud function with the layer-parse-module, you must call this function from your application and pass it the appropriate parameters (the userID and a nonce). The userID you are looking for is the objectID of the Parse User.
 
 ####iOS
-
-    // Request an authentication nonce from Layer
+```objc
+// Request an authentication nonce from Layer
     [layerClient requestAuthenticationNonceWithCompletion:^(NSString *nonce, NSError *error) {
         NSLog(@"Authentication nonce %@", nonce);
        
@@ -75,3 +75,4 @@ Once you have created the Cloud function with the layer-parse-module, you must c
             }
         }];
     }];
+```

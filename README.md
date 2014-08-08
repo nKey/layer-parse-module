@@ -84,9 +84,12 @@ Once you have created the Cloud function with the layer-parse-module, you must c
 // Request an authentication nonce from Layer
 [self.client requestAuthenticationNonceWithCompletion:^(NSString *nonce, NSError *error) {
     if (nonce) {
+    	NSLog(@"The Nonce %@", nonce);
+
+    	// Extract the token returned in the response and use it to authenticate the Layer client
     	ParseUser user = ParseUser.getCurrentUser();
     	String userID = user.getObjectId();
-    	
+
         HashMap<String, Object> params = new HashMap<String, Object>();
 		params.put("userID", userID);
 		params.put("nonce", nonce);

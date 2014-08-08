@@ -82,46 +82,46 @@ Once you have created the Cloud function with the layer-parse-module, you must c
 
 ####Android
 ```java
-        layerClient.registerAuthenticationListener(new LayerAuthenticationListener() {
-            @Override
-            public void onAuthenticationChallenge(final LayerClient client, String nonce) {
-                Log.d(TAG, "The nonce: " + nonce);
+	layerClient.registerAuthenticationListener(new LayerAuthenticationListener() {
+        @Override
+        public void onAuthenticationChallenge(final LayerClient client, String nonce) {
+            Log.d(TAG, "The nonce: " + nonce);
 
-                ParseUser user = ParseUser.getCurrentUser();
-                String userID = user.getObjectId();
+            ParseUser user = ParseUser.getCurrentUser();
+            String userID = user.getObjectId();
 
-                // Make a request to your backend to acquire a Layer identityToken
-                HashMap<String, Object> params = new HashMap<String, Object>();
-                params.put("userID", userID);
-                params.put("nonce", nonce);
-                ParseCloud.callFunctionInBackground("generateToken", params, new FunctionCallback<String>() {
-                    void done(String token, ParseException e) {
-                        if (e == null) {
-                            client.answerAuthenticationChallenge(token);
-                        } else {
-                            Log.d(TAG, "Parse Cloud function failed to be called to generate token with error: " + e.getMessage());
-                        }
+            // Make a request to your backend to acquire a Layer identityToken
+            HashMap<String, Object> params = new HashMap<String, Object>();
+            params.put("userID", userID);
+            params.put("nonce", nonce);
+            ParseCloud.callFunctionInBackground("generateToken", params, new FunctionCallback<String>() {
+                void done(String token, ParseException e) {
+                    if (e == null) {
+                        client.answerAuthenticationChallenge(token);
+                    } else {
+                        Log.d(TAG, "Parse Cloud function failed to be called to generate token with error: " + e.getMessage());
                     }
-                });
-            }
+                }
+            });
+        }
 
-            @Override
-            public void onAuthenticated(LayerClient client, String userId) {
-                Log.d("Successful Auth with userId: " + userId);
-            }
+        @Override
+        public void onAuthenticated(LayerClient client, String userId) {
+            Log.d("Successful Auth with userId: " + userId);
+        }
 
-            @Override
-            public void onDeauthenticated(LayerClient client) {
-                Log.d("Successful Deauth.");
-            }
+        @Override
+        public void onDeauthenticated(LayerClient client) {
+            Log.d("Successful Deauth.");
+        }
 
-            @Override
-            public void onAuthenticationError(LayerClient client, int errorCode, String errorMessage) {
-                Log.d("Error: " + errorMessage);
-            }
-        });
+        @Override
+        public void onAuthenticationError(LayerClient client, int errorCode, String errorMessage) {
+            Log.d("Error: " + errorMessage);
+        }
+    });
         
-        layerClient.authenticate();
+    layerClient.authenticate();
 ```
 
 You are now ready to build you app using Layer!

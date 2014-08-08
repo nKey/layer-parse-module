@@ -86,7 +86,6 @@ Once you have created the Cloud function with the layer-parse-module, you must c
     if (nonce) {
     	NSLog(@"The Nonce %@", nonce);
 
-    	// Extract the token returned in the response and use it to authenticate the Layer client
     	ParseUser user = ParseUser.getCurrentUser();
     	String userID = user.getObjectId();
 
@@ -96,11 +95,18 @@ Once you have created the Cloud function with the layer-parse-module, you must c
 		ParseCloud.callFunctionInBackground("generateToken", params, new FunctionCallback<String>() {
    			void done(String token, ParseException e) {
 	    		if (e == null) {
+	    			// Extract the token returned in the response and use it to authenticate the Layer client
 		 			[self.client authenticateWithIdentityToken:@"IDENTITY_TOKEN" completion:^(NSString *remoteUserID, 							NSError *error) {
 	     				if (!error) {
 	    			  		NSLog(@"Successful Auth with userID %@", remoteUserID);
 	     				}
+	     				else {
+	     					NSLog(@"Failed to authenticate user with error: %@", error);
+	     				}
 					}];
+	       		}
+	       		else {
+	       			NSLog(@"Parse Cloud function failed to be called to generate token with error: %@", error);
 	       		}
    			}
 		});

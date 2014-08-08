@@ -114,3 +114,6 @@ Once you have created the Cloud function with the layer-parse-module, you must c
 			});
 	    }
 	}];
+```
+
+You are not ready to build you app using Layer!

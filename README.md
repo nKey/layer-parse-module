@@ -63,7 +63,7 @@ Once you have created the Cloud function with the layer-parse-module, you must c
 	                                    block:^(NSString *token, NSError *error) {
 	            if (!error) {
 	            	// Send the Identity Token to Layer to authenticate the user
-	                [self.layerClient authenticateWithIdentityToken:token completion:^(NSString *authenticatedUserID, 							NSError *error) {
+	                [self.layerClient authenticateWithIdentityToken:token completion:^(NSString *authenticatedUserID, NSError *error) {
 	                    if (!error) {
 	                        NSLog(@"Parse User authenticated with Layer Identity Token");
 	                    }

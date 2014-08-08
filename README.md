@@ -40,7 +40,7 @@ Parse.Cloud.define("generateToken", function(request, response) {
 	var nonce = request.params.nonce
 	if (!userID) throw new Error('Missing userID parameter');
 	if (!nonce) throw new Error('Missing nonce parameter');
-        response.success(layer.layerIdentityToken(userID, nonce));
+        response.success(client.layerIdentityToken(userID, nonce));
 });
 ```
 
@@ -53,26 +53,53 @@ Once you have created the Cloud function with the layer-parse-module, you must c
     [layerClient requestAuthenticationNonceWithCompletion:^(NSString *nonce, NSError *error) {
         NSLog(@"Authentication nonce %@", nonce);
        
-        //Upon reciept of nonce, post to your backend and acquire a Layer identityToken  
-        PFUser *user = [PFUser currentUser];
-        NSString *userID  = user.objectId;
-        PFCloud callFunctionInBackground:@"generateToken"
-                           withParameters:@{@"nonce" : nonce,
-                                            @"userID" : userID}
-                                    block:^(NSString *token, NSError *error) {
-            if (error) {
-                NSLog(@"Parse Cloud function failed to be called to generate token with error: %@", error);
-            }
-            else{
-                [self.layerClient authenticateWithIdentityToken:token completion:^(NSString *authenticatedUserID, NSError                  *error) {
-                    if (error) {
-                        NSLog(@"Parse User failed to authenticate with token with error: %@", error);
-                    }
-                    else{
-                        NSLog(@"Parse User authenticated with Layer Identity Token");
-                    }
-                }];
-            }
-        }];
+        // Upon reciept of nonce, post to your backend and acquire a Layer identityToken  
+        if (nonce) {
+	        PFUser *user = [PFUser currentUser];
+	        NSString *userID  = user.objectId;
+	        PFCloud callFunctionInBackground:@"generateToken"
+	                           withParameters:@{@"nonce" : nonce,
+	                                            @"userID" : userID}
+	                                    block:^(NSString *token, NSError *error) {
+	            if (error) {
+	                NSLog(@"Parse Cloud function failed to be called to generate token with error: %@", error);
+	            }
+	            else{
+	                [self.layerClient authenticateWithIdentityToken:token completion:^(NSString *authenticatedUserID, 							NSError *error) {
+	                    if (error) {
+	                        NSLog(@"Parse User failed to authenticate with token with error: %@", error);
+	                    }
+	                    else{
+	                        NSLog(@"Parse User authenticated with Layer Identity Token");
+	                    }
+	                }];
+	            }
+	        }];
+		 }
     }];
 ```
+
+####Android
+```java
+// Request an authentication nonce from Layer
+[self.client requestAuthenticationNonceWithCompletion:^(NSString *nonce, NSError *error) {
+    if (nonce) {
+    	ParseUser user = ParseUser.getCurrentUser();
+    	String userID = user.getObjectId();
+    	
+        HashMap<String, Object> params = new HashMap<String, Object>();
+		params.put("userID", userID);
+		params.put("nonce", nonce);
+		ParseCloud.callFunctionInBackground("generateToken", params, new FunctionCallback<String>() {
+   			void done(String token, ParseException e) {
+	    		if (e == null) {
+		 			[self.client authenticateWithIdentityToken:@"IDENTITY_TOKEN" completion:^(NSString *remoteUserID, 							NSError *error) {
+	     				if (!error) {
+	    			  		NSLog(@"Successful Auth with userID %@", remoteUserID);
+	     				}
+					}];
+	       		}
+   			}
+		});
+    }
+}];

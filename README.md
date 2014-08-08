@@ -17,18 +17,23 @@ To get the Layer Module, clone this repo, and place it in your Parse Cloud Code 
 To use this module in your Parse Cloud Code, you have to require the module and initialize it with the proper IDs and keys. 
   1. Start by navigating to the keys folder in the repo you just cloned, and open the layer-key.js file. Copy the Private       Key generated through the Layer Developer Portal into this file and save it. 
   2. To require this module, open your main.js file and include this code at the top:
+  
         ```javascript
 	var fs = require('fs');
         var client = require('cloud/layer-module.js');
         ```
+        
   3. Next you must initialize the instance of this module with the proper Provider ID and Key ID generated in your Layer        Developer Portal:
+  
   	```javascript
         var layerProviderID = 'YOUR-PROVIDER ID-HERE';
         var layerKeyID = 'YOUR-KEY ID-HERE';
         var privateKey = fs.readFileSync('cloud/keys/layer-key.js');
         client.initialize(layerProviderID, layerKeyID, privateKey);
         ```
+        
   4. Finally, you must create Parse Cloud fundtion to call the layerIdentityToke function in the module. Your Cloud function will look something like this:
+  
   	```javascript
         Parse.Cloud.define("generateToken", function(request, response) {
 	          var userID = request.params.userID;

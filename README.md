@@ -88,7 +88,8 @@ Once you have created the Cloud function with the layer-parse-module, you must c
 
     	ParseUser user = ParseUser.getCurrentUser();
     	String userID = user.getObjectId();
-
+    	
+	// Make a request to your backend to acquire a Layer identityToken
         HashMap<String, Object> params = new HashMap<String, Object>();
 		params.put("userID", userID);
 		params.put("nonce", nonce);

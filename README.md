@@ -20,7 +20,7 @@ To use this module in your Parse Cloud Code, you have to require the module and 
   
 ```javascript
 var fs = require('fs');
-var client = require('cloud/layer-module.js');
+var layer = require('cloud/layer-parse-module/layer-module.js');
 ```
         
 Next you must initialize the instance of this module with the proper Provider ID and Key ID generated in your Layer        Developer Portal:
@@ -28,8 +28,8 @@ Next you must initialize the instance of this module with the proper Provider ID
 ```javascript
 var layerProviderID = 'YOUR-PROVIDER ID-HERE';
 var layerKeyID = 'YOUR-KEY ID-HERE';
-var privateKey = fs.readFileSync('cloud/keys/layer-key.js');
-client.initialize(layerProviderID, layerKeyID, privateKey);
+var privateKey = fs.readFileSync('cloud/layer-parse-module/keys/layer-key.js');
+layer.initialize(layerProviderID, layerKeyID, privateKey);
 ```
         
 Finally, you must create Parse Cloud fundtion to call the layerIdentityToken function in the module. Your Cloud function will look something like this:
@@ -40,7 +40,7 @@ Parse.Cloud.define("generateToken", function(request, response) {
 	var nonce = request.params.nonce
 	if (!userID) throw new Error('Missing userID parameter');
 	if (!nonce) throw new Error('Missing nonce parameter');
-    response.success(client.layerIdentityToken(userID, nonce));
+    	response.success(layer.layerIdentityToken(userID, nonce));
 });
 ```
 

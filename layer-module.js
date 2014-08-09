@@ -1,4 +1,4 @@
-var r = require("cloud/node_modules/jsrsasign/lib/jsrsasign.js");
+var signer = require("cloud/layer-parse-module/node_modules/jsrsasign/lib/jsrsasign.js");
 
 var layerProviderID = '';
 var layerKeyID = '';
@@ -35,7 +35,7 @@ module.exports = {
           nce: nonce, //Nonce obtained from the request
         });
 
-     	var token = r.jws.JWS.sign('RS256', header, claim, this.privateKey);
+     	var token = signer.jws.JWS.sign('RS256', header, claim, this.privateKey);
      	return token;
     }
 }

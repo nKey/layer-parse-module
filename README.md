@@ -37,7 +37,7 @@ Finally, you must create Parse Cloud fundtion to call the layerIdentityToken fun
 ```javascript
 Parse.Cloud.define("generateToken", function(request, response) {
 	var userID = request.params.userID;
-	var nonce = request.params.nonce
+	var nonce = request.params.nonce;
 	if (!userID) throw new Error('Missing userID parameter');
 	if (!nonce) throw new Error('Missing nonce parameter');
     	response.success(layer.layerIdentityToken(userID, nonce));

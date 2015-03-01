@@ -57,7 +57,7 @@ Once you have created the Cloud function with the layer-parse-module, you must c
         if (nonce) {
 	        PFUser *user = [PFUser currentUser];
 	        NSString *userID  = user.objectId;
-	        PFCloud callFunctionInBackground:@"generateToken"
+	        [PFCloud callFunctionInBackground:@"generateToken"
 	                           withParameters:@{@"nonce" : nonce,
 	                                            @"userID" : userID}
 	                                    block:^(NSString *token, NSError *error) {

@@ -32,7 +32,7 @@ var privateKey = fs.readFileSync('cloud/layer-parse-module/keys/layer-key.js');
 layer.initialize(layerProviderID, layerKeyID, privateKey);
 ```
         
-Finally, you must create Parse Cloud fundtion to call the layerIdentityToken function in the module. Your Cloud function will look something like this:
+Finally, you must create Parse Cloud function to call the layerIdentityToken function in the module. Your Cloud function will look something like this:
   
 ```javascript
 Parse.Cloud.define("generateToken", function(request, response) {

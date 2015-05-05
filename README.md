@@ -15,7 +15,24 @@ To get the Layer Module, clone this repo, and place it in your Parse Cloud Code 
 
 ###Creating your Cloud Function
 To use this module in your Parse Cloud Code, you have to require the module and initialize it with the proper IDs and keys. 
-  1. Start by navigating to the 'keys' folder in the repo you just cloned, and open the layer-key.js file. Copy the Private Key generated through the Layer Developer Portal  (developer.layer.com->Authentication->Authentication Keys) into this file and save it. 
+  1. Start by navigating to the 'keys' folder in the repo you just cloned, and open the layer-key.js file. Copy the Private Key generated through the Layer Developer Portal  (developer.layer.com->Authentication->Authentication Keys) into this file and save it. The contents of layer-key.js should look like:
+```
+-----BEGIN RSA PRIVATE KEY-----
+MIICXgIBAAKBgQC8TYuA95ayE+R0pS36CIpCbGts4dBKEiLmC9DyJtqoWBhcCAEj
+zELWwjCFuvCKO0IdqYfcEI1i0WJlrIQ5yd8TKqE5xueIot2BWNcitOPNA2OQGd0a
+EltVCQcJNR78NOqOyVdoJy3XH1VHxFmSjzgKS7ajxUmdl/eDdQQTZ1GTzQIDAQAB
+AoGAc4tJrMs/5umZ55Fr0t7mp7eLe3ZcrvbN/0cE4XHB/kaAPAiVWnf+E3V4/LYm
+30tZWIYsXXayqw48SJNBV4xtmnGqm8CNhKGi85YgMO6/spBBmOTM2gIcPY0AD9cs
+I8XuPd0R1FtE0HPeep3UsBS3+rThTTxafSgMTTXY1yfNpAECQQDguXZ88Fva8X1Y
+9TDdKw3w6KyWp7Dg5S3SZB5mGKE5SnGdoDah65qyVdAKO6kglDVLgVKFqk/mnXMS
+ydTHK9FNAkEA1oJyOvjV09q3ytfNqldaEgiMkGABs8vXRlZXogsPZ+98Xxc4kSfU
+9k4sUGiPN8PhwLBYR1ovabaD0p/QL2OMgQJBAN3CJsrj5cEIzUkbrDyUYA17jdSd
+Zk6H2c/kPJtDctW2QKfrkf33IZEaXVG7zgn4Nx9rXqPIjVBlz0ibIv3on4ECQQDO
+ueJKcPrpc7SCmN1M12gnTvPgQ5YAZ2ctExLbSJttSABtR9ytD10OjiHo0AuN64oK
+ACjjgseEsm9yMbAZq2+BAkEAsScuneZNvEmslI05qEsfLHk6Nqdy0sSw5nb5NhQH
+vdjPU9nQRYt9G6oVww9yp22BZDeM4IMS4kgLHqUhmCV0Jb==
+-----END RSA PRIVATE KEY-----
+```
   2. To require this module, open your main.js file and include this code at the top:
   
 ```javascript

@@ -41,7 +41,7 @@ var fs = require('fs');
 var layer = require('cloud/layer-parse-module/layer-module.js');
 ```
         
-Step 4: Next you must initialize the instance of this module with the proper Provider ID (developer.layer.com->Authentication->Provider ID) and Key ID (developer.layer.com->Authentication->Authentication Keys) generated in your Layer Developer Portal.
+Step 3: Next you must initialize the instance of this module with the proper Provider ID (developer.layer.com->Authentication->Provider ID) and Key ID (developer.layer.com->Authentication->Authentication Keys) generated in your Layer Developer Portal.
 ```javascript
 var layerProviderID = 'YOUR-PROVIDER ID-HERE';
 var layerKeyID = 'YOUR-KEY ID-HERE';

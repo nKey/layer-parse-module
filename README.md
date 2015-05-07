@@ -69,7 +69,7 @@ Once you have created the Cloud function with the layer-parse-module, you must c
 
 ####iOS
 ```objc
-// Request an authentication nonce from Layer
+    // Request an authentication nonce from Layer
     [layerClient requestAuthenticationNonceWithCompletion:^(NSString *nonce, NSError *error) {
         NSLog(@"Authentication nonce %@", nonce);
        

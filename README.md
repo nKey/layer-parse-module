@@ -4,7 +4,7 @@ To incorporate Layer Authentication with Parse user management in your applicati
 
 
 ##Installation
-If you haven't already, install the Parse command line tool that will let you manage the Parse Cloud Code for your application by following the directions outlined [here](https://parse.com/docs/cloud_code_guide).
+If you haven't already, install the Parse command line tool that will let you manage the Parse Cloud Code for your application by following the directions outlined [here](https://parse.com/docs/js/guide#cloud-code).
 
 To get the Layer Module, clone this repo, and place it in your Parse Cloud Code Directory in the 'cloud' folder:
 
@@ -60,6 +60,10 @@ Parse.Cloud.define("generateToken", function(request, response) {
 });
 ```
 
+Step 5: Make sure you actually upload your Parse Cloud code by executing the following command in the terminal:
+```
+$ parse deploy
+```
 ###Calling your Cloud Function
 Once you have created the Cloud function with the layer-parse-module, you must call this function from your application and pass it the appropriate parameters (the userID and a nonce). The userID you are looking for is the objectID of the Parse User. Wherever you are requesting a nonce for authentication, your code should look like this:
 

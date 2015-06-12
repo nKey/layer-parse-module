@@ -41,7 +41,7 @@ var fs = require('fs');
 var layer = require('cloud/layer-parse-module/layer-module.js');
 ```
         
-Step 3: Next you must initialize the instance of this module with the proper Provider ID (developer.layer.com->Authentication->Provider ID) and Key ID (developer.layer.com->Authentication->Authentication Keys) generated in your Layer Developer Portal.
+Step 3: Next you must initialize the instance of this module with the proper Provider ID (developer.layer.com->Authentication->Provider ID) and Key ID (developer.layer.com->Authentication->Authentication Keys) generated in your Layer Developer Portal. Define them in the `main.js` file:
 ```javascript
 var layerProviderID = 'YOUR-PROVIDER ID-HERE';
 var layerKeyID = 'YOUR-KEY ID-HERE';
@@ -49,7 +49,7 @@ var privateKey = fs.readFileSync('cloud/layer-parse-module/keys/layer-key.js');
 layer.initialize(layerProviderID, layerKeyID, privateKey);
 ```
         
-Step 4: Finally, you must create Parse Cloud function to call the layerIdentityToken function in the module. Your Cloud function will look something like this:
+Step 4: Finally, you must create Parse Cloud function to call the layerIdentityToken function in the module. The Cloud function will look something like this in `main.js`:
 ```javascript
 Parse.Cloud.define("generateToken", function(request, response) {
 	var userID = request.params.userID;

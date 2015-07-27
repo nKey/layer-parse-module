@@ -8,15 +8,17 @@ If you haven't already, install the Parse command line tool that will let you ma
 
 To get the Layer Module, clone this repo, and place it in your Parse Cloud Code Directory in the 'cloud' folder:
 
-    https://github.com/layerhq/layer-parse-module.git
-    
+```
+    git clone https://github.com/layerhq/layer-parse-module.git
+```
+
 ##Usage
 
 
 ###Creating your Cloud Function
 To use this module in your Parse Cloud Code, you have to require the module and initialize it with the proper IDs and keys. 
 
-Step 1: Start by navigating to the 'keys' folder in the repo you just cloned, and open the layer-key.js file. Copy the Private Key generated through the Layer Developer Portal  (developer.layer.com-> Keys) into this file and save it. The contents of layer-key.js should look like:
+Step 1: Start by navigating to the 'keys' folder in the repo you just cloned, and open the `layer-key.js` file. Copy the Private Key generated through the [Keys](https://developer.layer.com/projects/keys) section of the Dashboard into this file and save it. The contents of layer-key.js should look like:
 ```
 -----BEGIN RSA PRIVATE KEY-----
 MIICXgIBAAKBgQC8TYuA95ayE+R0pS36CIpCbGts4dBKEiLmC9DyJtqoWBhcCAEj
@@ -41,15 +43,15 @@ var fs = require('fs');
 var layer = require('cloud/layer-parse-module/layer-module.js');
 ```
         
-Step 3: Next you must initialize the instance of this module with the proper Provider ID (developer.layer.com->Authentication->Provider ID) and Key ID (developer.layer.com->Authentication->Authentication Keys) generated in your Layer Developer Portal. Define them in the `main.js` file:
+Step 3: Next you must initialize the instance of this module with the proper Provider ID (developer.layer.com->Keys->Provider ID) and Key ID (developer.layer.com->Keys->Authentication Keys) generated in your Layer Developer Portal. Define them in the `main.js` file:
 ```javascript
-var layerProviderID = 'YOUR-PROVIDER ID-HERE';
-var layerKeyID = 'YOUR-KEY ID-HERE';
+var layerProviderID = 'YOUR-PROVIDER ID-HERE';  // Should have the format of layer:///providers/<GUID>
+var layerKeyID = 'YOUR-KEY ID-HERE';   // Should have the format of layer:///keys/<GUID>
 var privateKey = fs.readFileSync('cloud/layer-parse-module/keys/layer-key.js');
 layer.initialize(layerProviderID, layerKeyID, privateKey);
 ```
         
-Step 4: Finally, you must create Parse Cloud function to call the layerIdentityToken function in the module. The Cloud function will look something like this in `main.js`:
+Step 4: Finally, you must create Parse Cloud function to call the `generateToken` function in the module. The Cloud function will look something like this in `main.js`:
 ```javascript
 Parse.Cloud.define("generateToken", function(request, response) {
 	var userID = request.params.userID;
@@ -64,6 +66,28 @@ Step 5: Make sure you actually upload your Parse Cloud code by executing the fol
 ```
 $ parse deploy
 ```
+
+The file structure should look like this when you're done:
+```
+├── layer-parse-module
+│   ├── README.md
+│   ├── keys
+│   │   └── layer-key.js
+│   ├── layer-module.js
+│   └── node_modules
+│       └── jsrsasign
+│           ├── Makefile
+│           ├── README.md
+│           ├── _t2.js
+│           ├── lib
+│           │   ├── footer.js
+│           │   ├── footer.js~
+│           │   ├── header.js
+│           │   └── jsrsasign.js
+│           └── package.json
+└── main.js
+```
+
 ###Calling your Cloud Function
 Once you have created the Cloud function with the layer-parse-module, you must call this function from your application and pass it the appropriate parameters (the userID and a nonce). The userID you are looking for is the objectID of the Parse User. Wherever you are requesting a nonce for authentication, your code should look like this:
 
@@ -145,3 +169,10 @@ Once you have created the Cloud function with the layer-parse-module, you must c
 ```
 
 You are now ready to build you app using Layer!
+
+## Troubleshooting Tips
+
+1. Make sure that the `layer-key.js` only includes the private key and no other text.
+2. Make sure you're setting the `layerProviderID`, `layerKeyID`, `privateKey` in the `main.js` not the `layer-module.js`.
+3. Double check all the values in step #2. All values can be found under [Keys](https://developer.layer.com/projects/keys) in the dashboard.
+4. Use the identity token validator under [Tools](https://developer.layer.com/projects/tools) in the Dashboard. It should help identify what the issue is.

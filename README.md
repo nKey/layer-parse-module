@@ -1,4 +1,4 @@
-layer-parse-module
+Parse Cloud Code Module For Layer
 ==================
 To incorporate Layer Authentication with Parse user management in your application, you will need to use Parse Cloud Code along with this module. This module takes care of generating a Layer Identity Token, and only requires you to implement a few lines of code.
 

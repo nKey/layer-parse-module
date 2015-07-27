@@ -54,7 +54,7 @@ layer.initialize(layerProviderID, layerKeyID, privateKey);
 Step 4: Finally, you must create Parse Cloud function to call the `generateToken` function in the module. The Cloud function will look something like this in `main.js`:
 ```javascript
 Parse.Cloud.define("generateToken", function(request, response) {
-	var userID = request.params.userID;
+	var userID = request.user;	
 	var nonce = request.params.nonce;
 	if (!userID) throw new Error('Missing userID parameter');
 	if (!nonce) throw new Error('Missing nonce parameter');
@@ -70,7 +70,6 @@ $ parse deploy
 The file structure should look like this when you're done:
 ```
 ├── layer-parse-module
-│   ├── README.md
 │   ├── keys
 │   │   └── layer-key.js
 │   ├── layer-module.js

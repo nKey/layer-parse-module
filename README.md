@@ -39,12 +39,14 @@ vdjPU9nQRYt9G6oVww9yp22BZDeM4IMS4kgLHqUhmCV0Jb==
 
 Step 2: To require this module, open your main.js file and include this code at the top:
 ```javascript
+//main.js
 var fs = require('fs');
 var layer = require('cloud/layer-parse-module/layer-module.js');
 ```
         
 Step 3: Next you must initialize the instance of this module with the proper Provider ID (developer.layer.com->Keys->Provider ID) and Key ID (developer.layer.com->Keys->Authentication Keys) generated in your Layer Developer Portal. Define them in the `main.js` file:
 ```javascript
+//main.js
 var layerProviderID = 'YOUR-PROVIDER ID-HERE';  // Should have the format of layer:///providers/<GUID>
 var layerKeyID = 'YOUR-KEY ID-HERE';   // Should have the format of layer:///keys/<GUID>
 var privateKey = fs.readFileSync('cloud/layer-parse-module/keys/layer-key.js');
@@ -53,6 +55,7 @@ layer.initialize(layerProviderID, layerKeyID, privateKey);
         
 Step 4: Finally, you must create Parse Cloud function to call the `generateToken` function in the module. The Cloud function will look something like this in `main.js`:
 ```javascript
+//main.js
 Parse.Cloud.define("generateToken", function(request, response) {
     var currentUser = request.user;
     if (!currentUser) throw new Error('You need to be logged in!');

@@ -49,7 +49,7 @@ Step 3: Next you must initialize the instance of this module with the proper Pro
 //main.js
 var layerProviderID = 'YOUR-PROVIDER ID-HERE';  // Should have the format of layer:///providers/<GUID>
 var layerKeyID = 'YOUR-KEY ID-HERE';   // Should have the format of layer:///keys/<GUID>
-var privateKey = fs.readFileSync('cloud/layer-parse-module/keys/layer-key.js');
+var privateKey = fs.readFileSync('cloud/layer-parse-module/keys/layer-key.js').toString();
 layer.initialize(layerProviderID, layerKeyID, privateKey);
 ```
         
